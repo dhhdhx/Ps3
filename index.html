@@ -1,125 +1,137 @@
-<!-- ***** BEGIN LICENSE BLOCK *****
- * Distributed under the BSD license:
- *
- * Copyright (c) 2010, Ajax.org B.V.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of Ajax.org B.V. nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL AJAX.ORG B.V. BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * ***** END LICENSE BLOCK ***** 
--->
 <!DOCTYPE html>
-<html>
-
+<html dir="rtl" lang="ar">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Ace Editor</title>
-	<script src="../js/ace.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../js/ext-language_tools.js"></script>
-	<script src="../js/ext-beautify.js"></script>
+  <meta charset="UTF-8" />
+  <title>🎮 متجر سوني 4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #0f172a, #1e293b);
+      color: white;
+    }
+    header {
+      background: #2563eb;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    #gamesContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .game-card {
+      background: #1e293b;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .game-card img {
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 12px;
+    }
+    .game-card h3 {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .game-card p {
+      flex-grow: 1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #d1d5db;
+    }
+    .btn {
+      background: #16a34a;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+    .btn:hover {
+      background: #15803d;
+    }
+    footer {
+      margin: 30px 0;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+  </style>
 </head>
-
 <body>
-	<div id="editor"></div>
 
-	<style>
-		body {
-			padding: 0;
-			margin: 0;
-		}
+<header>🎮 متجر ألعاب سوني 4</header>
 
-		#editor {
-			width: 100vw;
-			height: 100vh;
-		}
-	</style>
+<div id="gamesContainer">
+  <!-- سيتم تعبئته من Firebase -->
+</div>
 
-	<script>
-		class MyJSInterface {
-			getCursorStyle() {
-				return 'slim';
-			}
-			getUseSoftTabs() {
-				return true;
-			}
-			getEnableSnippets() {
-				return true;
-			}
-			getEnableLiveAutocompletion() {
-				return true;
-			}
-			getEnableBasicAutocompletion() {
-				return true;
-			}
-		}
+<footer>🔔 تم التصميم بواسطة <a href="https://t.me/mplm8" target="_blank" style="color:#3b82f6;">@mplm8</a></footer>
 
-		// Variables
-		var path;
-		var JSInterface = new MyJSInterface();
-		var setUseSoftTabs = JSInterface.getUseSoftTabs();
-		var cursorStyle = JSInterface.getCursorStyle();
-		var enableBasicAutocompletion = JSInterface.getEnableBasicAutocompletion();
-		var enableSnippets = JSInterface.getEnableSnippets();
-		var enableLiveAutocompletion = JSInterface.getEnableLiveAutocompletion();
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-		// New editor
-		var editor = ace.edit("editor");
-		// Disable use soft tabs
-		editor.session.setUseSoftTabs(setUseSoftTabs);
-		// enable autocompletion and snippetssnippets
-		editor.setOptions({
-			cursorStyle: cursorStyle,
-			enableBasicAutocompletion: enableBasicAutocompletion,
-			enableSnippets: enableSnippets,
-			enableLiveAutocompletion: enableLiveAutocompletion,
-			useWorker: false,
-		});
-		setEditorTheme();
-		setCode();
-        setLanguageMode();
+<script>
+  // إعدادات Firebase (أدخل بياناتك)
+  const firebaseConfig = {
+    apiKey: "AIzaSyABzu5cfLIn2YdhtPrC__CIkQ3z9hK35Cw",
+    authDomain: "pazxc-853ac.firebaseapp.com",
+    databaseURL: "https://pazxc-853ac-default-rtdb.firebaseio.com",
+    projectId: "pazxc-853ac",
+    storageBucket: "pazxc-853ac.appspot.com",
+    messagingSenderId: "806255799903",
+    appId: "1:806255799903:web:aae2080f239e3148d4bcde"
+  };
 
-		function setEditorTheme() {
-			editor.setTheme('ace/theme/' + aceEditor.getAceEditorTheme());
-		}
+  firebase.initializeApp(firebaseConfig);
 
-		function setLanguageMode() {
-			editor.session.setMode("ace/mode/" + aceEditor.getLanguageMode());
-		}
+  const dbRef = firebase.database().ref('ps4games');
 
-		function updateFontSize() {
-			document.getElementById('editor').style.fontSize = aceEditor.getZoom();
-		}
+  const container = document.getElementById('gamesContainer');
 
-		function setCode() {
-			editor.setValue(aceEditor.setCode());
-			editor.clearSelection();
-		}
+  // تحميل الألعاب من Firebase وعرضها
+  dbRef.on('value', snapshot => {
+    container.innerHTML = ''; // تفريغ المحتوى قبل العرض
+    if (!snapshot.exists()) {
+      container.innerHTML = '<p style="text-align:center; color:#facc15;">لا توجد ألعاب مضافة حالياً.</p>';
+      return;
+    }
+    snapshot.forEach(childSnap => {
+      const game = childSnap.val();
 
-		function putCodeToJava() {
-			aceEditor.getCode(editor.getValue());
-		}
-	</script>
+      // بناء عنصر اللعبة
+      const gameDiv = document.createElement('div');
+      gameDiv.classList.add('game-card');
+      gameDiv.innerHTML = `
+        <img src="${game.image || 'https://via.placeholder.com/300x180?text=No+Image'}" alt="${game.name}" />
+        <h3>${game.name}</h3>
+        <p>${game.description || ''}</p>
+        <a href="${game.file || '#'}" target="_blank" class="btn">⬇️ تحميل</a>
+      `;
+
+      container.appendChild(gameDiv);
+    });
+  });
+</script>
+
 </body>
-
 </html>
